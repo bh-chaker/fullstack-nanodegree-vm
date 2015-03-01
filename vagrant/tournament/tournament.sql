@@ -27,7 +27,8 @@ SELECT p.id as id, p.name as name, sum(case when p.id=m.winner then 1 else 0 end
 FROM player p
 LEFT JOIN match m
 ON p.id=m.winner OR p.id=m.loser
-GROUP BY p.id;
+GROUP BY p.id
+ORDER BY wins DESC, matches DESC;
 
 
 CREATE VIEW bye AS
