@@ -124,6 +124,54 @@ def testPairings():
             "After one match, players with one win should be paired.")
     print "8. After one match, players with one win are paired."
 
+def testOddPairings():
+    deleteMatches()
+    deletePlayers()
+    registerPlayer("1")
+    registerPlayer("2")
+    registerPlayer("3")
+    registerPlayer("4")
+    registerPlayer("5")
+    standings = playerStandings()
+    [id1, id2, id3, id4, id5] = [row[0] for row in standings]
+    pairings = swissPairings()
+    if len(pairings) != 3:
+        raise ValueError(
+            "For five players, swissPairings should return three pairs.")
+    [(pid1, pname1, pid2, pname2), (pid3, pname3, pid4, pname4), (pid5, pname5, pid6, pname6)] = pairings
+    correct_pairs = set([frozenset([id1, id2]), frozenset([id3, id4]), frozenset([id5, id5])])
+    actual_pairs = set([frozenset([pid1, pid2]), frozenset([pid3, pid4]), frozenset([pid5, pid6])])
+    if correct_pairs != actual_pairs:
+        raise ValueError(
+            """For odd number, lowest player should receive a 'bye'.""")
+    print "9. For odd number, lowest player received a 'bye'."
+
+def testConvergence():
+    deleteMatches()
+    deletePlayers()
+
+    for i in range(0, 16):
+        registerPlayer(i)
+
+    rounds = 4
+    matches = 32
+
+    for i in range(0, rounds):
+        pairings = swissPairings()
+        for pairing in pairings:
+            reportMatch(pairing[0], pairing[2])
+
+    standings = playerStandings()
+    for standing in standings:
+        if standing[3] != rounds:
+            raise ValueError(
+                """For 16 players, each player should play exactly 4 matches.""")
+
+    if countMatches() != matches:
+        raise ValueError(
+                """For 16 players, there should be a total of 32 matches.""")
+
+    print "10. For 16 players, number of rounds and matches is correct."
 
 if __name__ == '__main__':
     testDeleteMatches()
@@ -134,6 +182,7 @@ if __name__ == '__main__':
     testStandingsBeforeMatches()
     testReportMatches()
     testPairings()
-    print "Success!  All tests pass!"
+    testOddPairings()
+    testConvergence()
 
 
