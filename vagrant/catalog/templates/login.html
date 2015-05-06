@@ -1,0 +1,56 @@
+<!--LOAD PRE-REQUISITES FOR GOOGLE SIGN IN -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"> </script>
+<script src="//apis.google.com/js/platform.js?onload=start"> </script>
+
+
+
+<!-- GOOGLE PLUS SIGN IN-->
+<div id="signInButton" class="pull-right">
+  <span class="g-signin"
+    data-scope="openid email"
+    data-clientid="64518744389-7tu8rplonlabml4h7j0q2su0g8u2fiun.apps.googleusercontent.com"
+    data-redirecturi="postmessage"
+    data-accesstype="offline"
+    data-cookiepolicy="single_host_origin"
+    data-callback="signInCallback"
+    data-approvalprompt="force">
+  </span>
+</div>
+
+<script>
+function signInCallback(authResult) {
+  if (authResult['code']) {
+    // Remove the sign-in button and display 'Processing...'
+    $("#signInButton").html("<span class='btn btn-info'>Processing...</span>");
+
+    // Send the one-time-use code to the server
+    var data = {
+        'provider'  : 'google',
+        'code'      : authResult['code'],
+        'csrf_token': '{{session['csrf_token']}}',
+      };
+
+    $.post('/connect', data)
+      .always(function(result) {
+        // Handle or verify the server response if necessary.
+        var success = false;
+
+        try {
+          success = result.success;
+        }
+        catch (err) {
+
+        }
+        if (success) {
+          $("#signInButton").html("<span class='btn btn-success'>Redirecting...</span>");
+          setTimeout(function() {
+            window.location.reload();
+          }, 4000);
+        } else {
+          $("#signInButton").html("<span class='btn btn-danger'>Error</span>");
+        }
+      });
+  }
+}
+</script>
+<!--END GOOGLE PLUS SIGN IN -->

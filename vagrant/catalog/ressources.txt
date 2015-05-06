@@ -1,0 +1,4 @@
+How to deloy to GAE:
+https://www.youtube.com/watch?v=FRI3QGNWJYI
+https://github.com/kamalgill/flask-appengine-template
+jeff-coach@udacity.com

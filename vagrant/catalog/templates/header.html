@@ -1,0 +1,41 @@
+<div class="row top-menu">
+	<div class="col-md-6">
+		<a href="{{url_for('showCatalog')}}">
+			<span class="glyphicon glyphicon-home" aria-hidden="true"> </span>Home
+		</a>
+		{% if category %}
+		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"> </span><a href="{{url_for('showCategory', category_name=category.name)}}">{{category.name}}</a>
+		{% if item %}
+		<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"> </span><a href="{{url_for('showItem', category_name=category.name, item_name=item.name)}}">{{item.name}}</a>
+		{% endif %}
+		{% endif %}
+	</div>
+	<div class="col-md-6 text-right">
+		{%if 'username' not in session %}
+		{% include "login.html" %}
+		{% else %}
+		<a href="{{url_for('disconnect')}}">Logout </a>
+		{% endif %}
+	</div>
+</div>
+
+<div class="row divider blue">
+	<div class="col-md-12"></div>
+</div>
+<div class="row banner">
+	<div class="col-md-1"></div>
+	<div class="col-md-11 padding-none">
+		<h1>{% if item %} {{item.name}} {% elif category %} {{category.name}} {% else %} European Football Leagues {% endif %}</h1>
+	</div>
+</div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="row text-center bg-{{category}}">
+	<strong>{{ message }}</strong>
+</div>
+{% endfor %}
+<div class="row">&nbsp;</div>
+{% endif %}
+{% endwith %}

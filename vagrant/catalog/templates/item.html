@@ -1,0 +1,17 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+    <div class="row">
+        <div class="col-md-8">
+            <h2>{{item.name}}</h2>
+            <p>{{item.description}}</p>
+            {% if 'username' in session %}
+            <a href='{{url_for('editItem', category_name = category.name, item_name=item.name ) }}'>Edit</a> |
+            <a href='{{url_for('deleteItem', category_name = category.name, item_name=item.name ) }}'>Delete</a>
+            {% endif %}
+        </div>
+        <div class="col-md-4">
+            {% if item.image_url %}<img src="{{item.image_url}}" class="image-responsive center-block"/>    {% endif %}
+        </div>
+    </div>
+{% endblock %}

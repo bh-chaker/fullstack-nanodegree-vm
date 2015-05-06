@@ -1,0 +1,38 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+	{% for item in items %}
+	<div class="row">
+		<div class="col-md-2 img-thumbnail" style="height:100px">
+			{% if item.image_url %}
+            <img src="{{ item.image_url }}" class="img-responsive center-block" style="height:90px"/>
+            {% endif %}
+        </div>
+        <div class="col-md-4 list" onclick="window.location.href='{{url_for('showItem', category_name = category.name, item_name=item.name)}}'">
+            <h3>{{item.name}}</h3>
+            {% if 'username' in session %}
+			<a href='{{url_for('editItem', category_name = category.name, item_name=item.name ) }}'>Edit</a> |
+			<a href='{{url_for('deleteItem', category_name = category.name, item_name=item.name ) }}'>Delete</a>
+			{% endif %}
+        </div>
+		<div class="col-md-6">
+			<h4>{{ item.description[:100] }}...</h4>
+		</div>
+	</div>
+	{% endfor %}
+
+	{% if 'username' in session %}
+	<div class="row padding-top padding-bottom">
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-11 padding-none">
+			<a href="{{url_for('newItem', category_name = category.name )}}">
+				<button class="btn btn-default custom-btn">
+					<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add Team
+				</button>
+			</a>
+		</div>
+		<div class="col-md-7"></div>
+	</div>
+	{% endif %}
+{% endblock %}

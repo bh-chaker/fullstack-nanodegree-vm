@@ -110,7 +110,7 @@ def playerStandings():
         matches: the number of matches the player has played
     """
     try:
-        return execute(query="SELECT id, name, wins, matches FROM standing ORDER BY wins DESC, matches DESC;")
+        return execute(query="SELECT id, name, wins, matches FROM standing;")
     except Exception as e:
         print("Error inside 'playerStandings' function.")
         raise SystemExit

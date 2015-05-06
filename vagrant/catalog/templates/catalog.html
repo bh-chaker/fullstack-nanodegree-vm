@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+	{% for category in categories %}
+    <div class="row">
+        <div class="col-md-2 img-thumbnail">
+            <img src="{{ category.image_url }}" class="img-responsive center-block" style="height:90px"/>
+        </div>
+        <div class="col-md-4 list" onclick="window.location.href='{{url_for('showCategory', category_name = category.name)}}'">
+            <h3>{{category.name}}</h3>
+        </div>
+		<div class="col-md-6">{{category.description}}</div>
+    </div>
+	{% endfor %}
+{% endblock %}
