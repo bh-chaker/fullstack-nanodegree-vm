@@ -6,7 +6,7 @@ Full Stack Nanodegree VM
 The Item Catalog project consists of developing an application that provides a list of items within a variety of categories, as well as provide a user registration and authentication system.
 In this example, the categories are the best European Football Leagues and the items are Football teams.
 ##Installation
-* Clone the repository in your machine
+* Clone or download the repository to your machine
 * Navigate to vagrant folder:
 
  cd to fullstack-nanodegree-vm/vagrant
