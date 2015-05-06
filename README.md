@@ -1,9 +1,34 @@
-rdb-fullstack
+Full Stack Nanodegree VM
 =============
 
-Common code for the Relational Databases and Full Stack Fundamentals courses
+#Catalog App
+##Overview
+The Item Catalog project consists of developing an application that provides a list of items within a variety of categories, as well as provide a user registration and authentication system.
+In this example, the categories are the best European Football Leagues and the items are Football teams.
+##Installation
+* Clone the repository in your machine
+* Navigate to vagrant folder:
 
+ cd to fullstack-nanodegree-vm/vagrant
+ 
+* Start the vagrant VM and login via ssh:
 
-The code for <b>Swiss-system tournament</b> can be found [here] [1]. The README file contains instructions on how to test the application.
+ vagrant up
+ 
+ vagrant ssh
+ 
+* Withing the VM, navigate to /vagrant/catalog:
 
-[1]:https://github.com/bh-chaker/fullstack-nanodegree-vm/tree/master/vagrant/tournament
+ cd /vagrant/catalog
+
+* Setup and populate the databasee:
+
+ python database_setup.py
+ 
+ python database_populate.py
+ 
+* Start the server:
+
+ python project.py
+ 
+* Access the app on http://localhost:8000
