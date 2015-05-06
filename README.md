@@ -13,7 +13,7 @@ In this example, the categories are the best European Football Leagues and the i
  
 * Start the vagrant VM and login via ssh:
 
- vagrant up
+ vagrant up  `--> You need to be patient at this step. There is a lot to install when running pg_config.sh`
  
  vagrant ssh
  
